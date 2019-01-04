@@ -80,3 +80,11 @@ Can you see the HTTP code being returned?
 
 Note: you can always use the default Heroku method to view logs by running
 `heroku logs`.
+
+#### Deleting your Application
+
+Once you're done, you might want to delete your application.
+
+```
+heroku destroy
+```
