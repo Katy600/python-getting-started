@@ -3,10 +3,22 @@ from django.http import HttpResponse
 
 from .models import Greeting
 
+import random
+import logging
+
+class MyError(Exception):
+    def __init__(self, message):
+        self.message = message
+
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
-    return render(request, "index.html")
+    if random.randint(0,1) == 1:
+        logger = logging.getLogger(__name__)
+        logger.debug('There is a 50% chance this action raises an error')
+        raise RandomError('There is a chance this action raises an error')
+    else:
+        return render(request, "index.html")
 
 
 def db(request):
