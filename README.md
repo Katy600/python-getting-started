@@ -41,7 +41,8 @@ heroku addons:create newrelic
 heroku restart
 ```
 
-Reload the front page of your app a few times. Then open NewRelic by running
+Reload the front page of your app a few times. It can take a few minutes for
+data to appear in your dashboard. Then open NewRelic by running
 `heroku addons:open newrelic`.
 
 You should see a list of applications, click on `production`. This shows you
