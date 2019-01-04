@@ -8,7 +8,7 @@ This is a demo application for learning about operability of software.
 2. Clone it to your local machine.
 3. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
 4. Run `heroku login`
-5. In the folder of the operability of software app, run `heroku create`
+5. In the folder of the python getting started app, run `heroku create`
 6. Push your app to Heroku by doing `git push heroku master`
 7. Once the push finishes, run `heroku open` to see your app
 8. Reload the frontpage a few times, you should eventually see an error!
@@ -17,7 +17,7 @@ This is a demo application for learning about operability of software.
 
 Add Sentry to your application.
 
-In the `operability_of_software` folder run: `heroku addons:create sentry`
+In the `python_getting_started` folder run: `heroku addons:create sentry`
 
 You should get an email with a link to confirm your email, click that.
 
