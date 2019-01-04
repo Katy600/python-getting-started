@@ -3,6 +3,8 @@ from django.http import HttpResponse
 
 from .models import Greeting
 
+from raven.contrib.django.models import client
+
 import random
 import logging
 
@@ -13,12 +15,15 @@ class RandomError(Exception):
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
-    if random.randint(0,1) == 1:
-        logger = logging.getLogger(__name__)
-        logger.debug('There is a 50% chance this action raises an error')
-        raise RandomError('There is a chance this action raises an error')
-    else:
-        return render(request, "index.html")
+    try:
+        if random.randint(0,1) == 1:
+            logger = logging.getLogger(__name__)
+            logger.debug('There is a 50% chance this action raises an error')
+            raise RandomError('There is a chance this action raises an error')
+        else:
+            return render(request, "index.html")
+    except:
+        client.captureException()
 
 
 def db(request):
