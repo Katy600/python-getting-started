@@ -1,45 +1,81 @@
-# Python: Getting Started
+### Operability of Software
 
-A barebones Django app, which can easily be deployed to Heroku.
+This is a demo application for learning about operability of software.
 
-This application supports the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out.
+#### Setup
 
-## Running Locally
+1. Fork this repository to your GitHub account
+2. Clone it to your local machine.
+3. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
+4. Run `heroku login`
+5. In the folder of the operability of software app, run `heroku create`
+6. Push your app to Heroku by doing `git push heroku master`
+7. Once the push finishes, run `heroku open` to see your app
+8. Reload the frontpage a few times, you should eventually see an error!
 
-Make sure you have Python 3.7 [installed locally](http://install.python-guide.org). To push to Heroku, you'll need to install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), as well as [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
+#### Sentry
 
-```sh
-$ git clone https://github.com/heroku/python-getting-started.git
-$ cd python-getting-started
+Add Sentry to your application.
 
-$ python3 -m venv getting-started
-$ pip install -r requirements.txt
+In the `operability_of_software` folder run: `heroku addons:create sentry`
 
-$ createdb python_getting_started
+You should get an email with a link to confirm your email, click that.
 
-$ python manage.py migrate
-$ python manage.py collectstatic
+To open Sentry, run: `heroku addons:open sentry`
 
-$ heroku local
+Can you see the error in your application?
+What is the name of the exception?
+What is the message accompanied with the exception?
+What is the IP of the user who triggered the exception?
+Can you see what browser and OS they (you) are using?
+Can you see the filename and line number where the error occured?
+Can you view the stack trace for the error?
+Can you see how many times the error has occured?
+
+#### NewRelic
+
+Add NewRelic to your application.
+
+```
+heroku addons:create newrelic
+heroku restart
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+Reload the front page of your app a few times. Then open NewRelic by running
+`heroku addons:open newrelic`.
 
-## Deploying to Heroku
+You should see a list of applications, click on `production`. This shows you
+a lot of information, have a look around.
 
-```sh
-$ heroku create
-$ git push heroku master
+Can you see the error rate of the application?
+Can you see the average response time?
+Can you see the requests per minute?
+Can you see the CPU and memory usage of the server?
 
-$ heroku run python manage.py migrate
-$ heroku open
-```
-or
+Alerts are sadly not available in the free version of NewRelic, but we could
+create alerts around these metrics hitting certain thresholds. Click the
+"alerts" in the top menu to see more information.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+#### Papertrail
 
-## Documentation
+Add Papertrail to your application by running `heroku addons:create papertrail`.
 
-For more information about using Python on Heroku, see these Dev Center articles:
+It will take five minutes or so until logs start appearing in Papertrail.
 
-- [Python on Heroku](https://devcenter.heroku.com/categories/python)
+Once a little while as passed, you can view Papertrail logs by running
+`heroku addons:open papertrail`.
+
+The log file is mostly a list of HTTP requests coming in, each request triggers
+some stuff being added to the log file. Reload the page and see the information
+being added to the log file.
+
+Have a read through a part of the file and see what information is there.
+
+There is some debugging information about the error in the logs, can you find
+it? It should tell you the chance of the front page raising an error.
+Can you see the name of the controller being accessed one the root path?
+Can you see the name of the view being rendered?
+Can you see the HTTP code being returned?
+
+Note: you can always use the default Heroku method to view logs by running
+`heroku logs`.
