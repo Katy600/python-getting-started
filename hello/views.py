@@ -6,7 +6,7 @@ from .models import Greeting
 import random
 import logging
 
-class MyError(Exception):
+class RandomError(Exception):
     def __init__(self, message):
         self.message = message
 
