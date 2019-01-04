@@ -15,15 +15,12 @@ class RandomError(Exception):
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
-    try:
-        if random.randint(0,1) == 1:
-            logger = logging.getLogger(__name__)
-            logger.debug('There is a 50% chance this action raises an error')
-            raise RandomError('There is a chance this action raises an error')
-        else:
-            return render(request, "index.html")
-    except:
-        client.captureException()
+    if random.randint(0,1) == 1:
+        logger = logging.getLogger(__name__)
+        logger.debug('There is a 50% chance this action raises an error')
+        raise RandomError('There is a chance this action raises an error')
+    else:
+        return render(request, "index.html")
 
 
 def db(request):
